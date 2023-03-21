@@ -9,7 +9,10 @@ declare(strict_types=1);
 
 function dd($var, ...$vars): void
 {
-    var_dump($var, $vars);
-
+    if ($vars) {
+        var_dump($var, $vars);
+    } else {
+        var_dump($var);
+    }
     exit;
 }

@@ -9,14 +9,59 @@ declare(strict_types=1);
 
 namespace Smoq\Http;
 
+use Smoq\Http\Contracts\ResponseInterface;
+use Smoq\ParameterBag\Contracts\ParameterBagInterface;
 use Smoq\ParameterBag\ParameterBag;
 
-class Response
+class Response implements ResponseInterface
 {
-    private ParameterBag $headers;
-    private string $content = '';
-
-    public function setHeaders(array $headers): void
+    public function __construct(private ParameterBagInterface $headers = new ParameterBag(), private string $content = "", private int $statusCode = 200)
     {
+    }
+
+    public function setHeaders(ParameterBagInterface $headers): self
+    {
+        $this->headers = $headers;
+
+        return $this;
+    }
+
+    public function getHeaders(): ParameterBag
+    {
+        return $this->headers;
+    }
+
+    public function setContent(string $content): self
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    public function getContent(): string
+    {
+        return $this->content;
+    }
+
+    public function setStatusCode(int $statusCode): self
+    {
+        $this->statusCode = $statusCode;
+
+        return $this;
+    }
+
+    public function getStatusCode(): int
+    {
+        return $this->statusCode;
+    }
+
+    public function send()
+    {
+
+        foreach ($this->headers->getParams() as $key => $value) {
+            header("$key: $value");
+        }
+
+        echo $this->content;
     }
 }

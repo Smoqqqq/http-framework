@@ -9,7 +9,9 @@ declare(strict_types=1);
 
 namespace Smoq\ParameterBag;
 
-class ParameterBag
+use Smoq\ParameterBag\Contracts\ParameterBagInterface;
+
+class ParameterBag implements ParameterBagInterface
 {
     public function __construct(private array $params = [])
     {
@@ -20,10 +22,10 @@ class ParameterBag
      * 
      * @param string|int $key the key looked for
      */
-    public function get(string|int $key)
+    public function get(string|int $key): mixed
     {
         if (!\array_key_exists($key, $this->params)) {
-            throw new UnknownKeyException("Key '{$key}' does not exist in the parameter bag");
+            throw new \Exception("Key '{$key}' does not exist in the parameter bag");
         }
 
         return $this->params[$key];
@@ -32,7 +34,7 @@ class ParameterBag
     /**
      * Sets a key value pair.
      *
-     * @param string|int $key   the kay for this pair
+     * @param string|int $key the key for this pair
      * @param mixed  $value the value to store
      */
     public function set(string|int $key, mixed $value): self

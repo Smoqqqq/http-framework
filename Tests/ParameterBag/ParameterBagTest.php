@@ -26,7 +26,8 @@ class ParameterBagTest extends TestCase {
         
         $this->assertEquals([0 => "test", 1 => 123, 2 => null, "new" => "value"], $bag->getParams(), "Params didn't match expected");
         
-        $this->expectException(UnknownKeyException::class);
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage("Key 'unknow_param' does not exist in the parameter bag");
         $bag->get("unknow_param");
 
     }

@@ -5,8 +5,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Smoq\\": ["Src/"]
+            "Smoq\\": "Src/",
+            "App\\": "App/"
         },
         "files": ["Src/functions.php"]
+    },
+    "require": {
+        "vlucas/phpdotenv": "^5.5"
     }
 }
