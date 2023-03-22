@@ -11,7 +11,7 @@ namespace Smoq\DependencyInjection;
 
 use Smoq\ParameterBag\ParameterBag;
 
-class Container
+class DependencyInjectionContainer
 {
     private static ParameterBag $dependencies;
 

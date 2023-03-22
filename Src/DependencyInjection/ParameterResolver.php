@@ -11,13 +11,21 @@ namespace Smoq\DependencyInjection;
 
 class ParameterResolver
 {
-    private Container $container;
+    private DependencyInjectionContainer $container;
 
     public function __construct()
     {
-        $this->container = new Container();
+        $this->container = new DependencyInjectionContainer();
     }
 
+    /**
+     * Returns an array of objects instanciated from a given method's params
+     * 
+     * @param object|string $class an object or a class name
+     * @param string $method the specific method to resolve params from
+     * 
+     * @return array of objects, null if not found
+     */
     public function resolveClassMethodParams(object|string $class, string $method)
     {
         $reflexion = new \ReflectionMethod($class, $method);

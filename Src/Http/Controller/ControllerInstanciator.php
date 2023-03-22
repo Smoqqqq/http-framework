@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace Smoq\Http\Controller;
 
+use Smoq\Http\Contracts\ResponseInterface;
 use Smoq\DependencyInjection\ParameterResolver;
 
 class ControllerInstanciator
@@ -21,6 +22,8 @@ class ControllerInstanciator
 
         $parameters = $paramResolver->resolveClassMethodParams($controller, $currentRoute['method']);
 
-        $controller->{$currentRoute['method']}(...$parameters);
+        /** @var ResponseInterface */
+        $response = $controller->{$currentRoute['method']}(...$parameters);
+        $response->send();
     }
 }
