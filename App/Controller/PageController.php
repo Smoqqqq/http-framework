@@ -12,16 +12,17 @@ namespace App\Controller;
 use App\Service\BarService;
 use App\Service\FooService;
 use Smoq\Http\Attributes\Route;
+use Smoq\Http\Controller\AbstractController;
 use Smoq\Http\Response;
 use Smoq\ParameterBag\ParameterBag;
 
-class PageController
+class PageController extends AbstractController
 {
     #[Route('/', 'app_home')]
     public function home(FooService $fooService, BarService $barService)
     {
         $fooService->sayHi();
 
-        return new Response(new ParameterBag(), '<h1>Homepage</h1>');
+        $this->renderRaw('<h1>Homepage</h1>');
     }
 }

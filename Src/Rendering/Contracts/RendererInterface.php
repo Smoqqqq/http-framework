@@ -14,5 +14,5 @@ interface RendererInterface
     /**
      * renders a template.
      */
-    public function render(string $templatePath, array $variables);
+    public static function render(string $templatePath, array $variables);
 }

@@ -9,16 +9,19 @@ declare(strict_types=1);
 
 namespace Smoq\Http\Controller;
 
+use Smoq\Env;
+use Smoq\Http\Router\Router;
 use Smoq\Http\Attributes\Route;
 use Smoq\Http\Router\RouteCacher;
-use Smoq\Http\Router\Router;
 
 class ControllerRegisterer
 {
     private string $baseDir;
+    private string $appEnv;
 
-    public function __construct(private string $appEnv)
+    public function __construct()
     {
+        $this->appEnv = Env::get("APP_ENV");
         $this->baseDir = getcwd().\DIRECTORY_SEPARATOR.'App'.\DIRECTORY_SEPARATOR.'Controller';
     }
 

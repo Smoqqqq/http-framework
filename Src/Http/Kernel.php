@@ -9,10 +9,11 @@ declare(strict_types=1);
 
 namespace Smoq\Http;
 
+use Smoq\Env;
 use Dotenv\Dotenv;
-use Smoq\Http\Controller\ControllerInstanciator;
-use Smoq\Http\Controller\ControllerRegisterer;
 use Smoq\Http\Router\Router;
+use Smoq\Http\Controller\ControllerRegisterer;
+use Smoq\Http\Controller\ControllerInstanciator;
 
 class Kernel
 {
@@ -20,7 +21,7 @@ class Kernel
 
     public function __construct()
     {
-        $this->env = $this->getEnv();
+        $this->getEnv();
         $this->handleRouting();
     }
 
@@ -31,7 +32,7 @@ class Kernel
     {
         $dotenv = Dotenv::createImmutable(getcwd());
 
-        return $dotenv->load();
+        Env::setVariables($dotenv->load());
     }
 
     /**
@@ -39,7 +40,7 @@ class Kernel
      */
     private function handleRouting(): void
     {
-        $controllerRegisterer = new ControllerRegisterer($this->env['APP_ENV']);
+        $controllerRegisterer = new ControllerRegisterer();
         $controllerRegisterer->register();
 
         $request = new Request();
