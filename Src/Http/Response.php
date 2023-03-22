@@ -15,7 +15,7 @@ use Smoq\ParameterBag\ParameterBag;
 
 class Response implements ResponseInterface
 {
-    public function __construct(private ParameterBagInterface $headers = new ParameterBag(), private string $content = "", private int $statusCode = 200)
+    public function __construct(private ParameterBagInterface $headers = new ParameterBag(), private string $content = '', private int $statusCode = 200)
     {
     }
 
@@ -55,11 +55,10 @@ class Response implements ResponseInterface
         return $this->statusCode;
     }
 
-    public function send()
+    public function send(): void
     {
-
         foreach ($this->headers->getParams() as $key => $value) {
-            header("$key: $value");
+            header("{$key}: {$value}");
         }
 
         echo $this->content;

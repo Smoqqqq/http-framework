@@ -75,9 +75,9 @@ class Request implements RequestInterface
     {
         return $this->env;
     }
-    
+
     public function getRequestUri(): string
     {
-        return $this->serverInfo["REQUEST_URI"];
+        return $this->serverInfo['REQUEST_URI'];
     }
 }

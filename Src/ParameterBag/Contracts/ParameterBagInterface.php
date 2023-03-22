@@ -15,16 +15,16 @@ interface ParameterBagInterface
 
     /**
      * Gets the value associated with a key.
-     * 
-     * @param string|int $key the key looked for
+     *
+     * @param int|string $key the key looked for
      */
     public function get(string|int $key): mixed;
 
     /**
      * Sets a key value pair.
      *
-     * @param string|int $key   the kay for this pair
-     * @param mixed  $value the value to store
+     * @param int|string $key   the kay for this pair
+     * @param mixed      $value the value to store
      */
     public function set(string|int $key, mixed $value): self;
 

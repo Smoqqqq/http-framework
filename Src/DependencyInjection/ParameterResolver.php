@@ -1,12 +1,13 @@
 <?php
 
-namespace Smoq\DependencyInjection;
+declare(strict_types=1);
 
-use Exception;
-use ReflectionClass;
-use ReflectionMethod;
-use ReflectionParameter;
-use Smoq\DependencyInjection\Container;
+/*
+ * This file is part of **FRAMEWORK**
+ * Author Paul Le Flem <contact@paul-le-flem.fr>
+ */
+
+namespace Smoq\DependencyInjection;
 
 class ParameterResolver
 {
@@ -19,7 +20,7 @@ class ParameterResolver
 
     public function resolveClassMethodParams(object|string $class, string $method)
     {
-        $reflexion = new ReflectionMethod($class, $method);
+        $reflexion = new \ReflectionMethod($class, $method);
 
         $params = $reflexion->getParameters();
         $dependencies = [];
@@ -31,23 +32,23 @@ class ParameterResolver
         return $dependencies;
     }
 
-    public function resolveParam(ReflectionParameter $param)
+    public function resolveParam(\ReflectionParameter $param)
     {
         try {
             // Si il est enregistré en tant que service, on le récupère
-            $dependency = $this->container->get($param->getType()->getName());
-            return $dependency;
+            return $this->container->get($param->getType()->getName());
         } catch (\Exception) {
             if (!class_exists($param->getType()->getName())) {
-                throw new Exception("Cannot autowire " . $param->getType()->getName() . ". please configure the container");
+                throw new \Exception('Cannot autowire '.$param->getType()->getName().'. please configure the container');
             }
 
             $className = $param->getType()->getName();
-            $classReflection = new ReflectionClass($className);
+            $classReflection = new \ReflectionClass($className);
 
             // Si il à un constructeur, on appel à nouveau la méthode `resolveClassMethodParams`
-            if ($classReflection->hasMethod("__construct")) {
+            if ($classReflection->hasMethod('__construct')) {
                 $params = $this->resolveClassMethodParams($className, '__construct');
+
                 return $this->instanciate($className, $params);
             }
 
@@ -56,7 +57,8 @@ class ParameterResolver
         }
     }
 
-    public function instanciate(string $className, array $params) {
+    public function instanciate(string $className, array $params)
+    {
         return new $className(...$params);
     }
 }

@@ -1,12 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of **FRAMEWORK**
+ * Author Paul Le Flem <contact@paul-le-flem.fr>
+ */
+
 namespace Smoq\Http\Router;
 
 use Smoq\Http\Controller\ErrorController;
 
 class Router
 {
-    static array $routes;
+    public static array $routes;
 
     public function __construct(private array $params = [])
     {
@@ -15,17 +22,17 @@ class Router
 
     /**
      * Gets the value associated with a key.
-     * 
-     * @param string|int $key the key looked for
+     *
+     * @param int|string $key the key looked for
      */
     public static function get(string|int $key): mixed
     {
         if (!\array_key_exists($key, static::$routes)) {
             return [
-                "path" => $key,
-                "name" => "__app_error_404",
-                "controller" => ErrorController::class,
-                "method" => "error404",
+                'path' => $key,
+                'name' => '__app_error_404',
+                'controller' => ErrorController::class,
+                'method' => 'error404',
             ];
         }
 
@@ -35,8 +42,8 @@ class Router
     /**
      * Sets a key value pair.
      *
-     * @param string|int $key the key for this pair
-     * @param mixed $value the value to store
+     * @param int|string $key   the key for this pair
+     * @param mixed      $value the value to store
      */
     public static function set(string|int $key, mixed $value): static
     {
@@ -46,7 +53,7 @@ class Router
     }
 
     /**
-     * Sets all routes
+     * Sets all routes.
      *
      * @param array $routes the content of the bag
      */
@@ -58,7 +65,7 @@ class Router
     }
 
     /**
-     * Gets all routes
+     * Gets all routes.
      */
     public static function getRoutes(): array
     {
