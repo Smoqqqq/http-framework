@@ -9,8 +9,8 @@ declare(strict_types=1);
 
 namespace Smoq\Http\Controller;
 
-use Smoq\Http\Contracts\ResponseInterface;
 use Smoq\DependencyInjection\ParameterResolver;
+use Smoq\Http\Contracts\ResponseInterface;
 
 class ControllerInstanciator
 {

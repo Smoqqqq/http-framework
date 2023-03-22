@@ -57,6 +57,7 @@ class Response implements ResponseInterface
 
     public function send(): void
     {
+        http_response_code($this->statusCode);
         foreach ($this->headers->getParams() as $key => $value) {
             header("{$key}: {$value}");
         }

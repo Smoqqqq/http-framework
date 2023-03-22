@@ -21,16 +21,12 @@ class Kernel
     public function __construct()
     {
         $this->env = $this->getEnv();
-
-        $controllerRegisterer = new ControllerRegisterer($this->env['APP_ENV']);
-        $controllerRegisterer->register();
-
-        $request = new Request();
-
-        $currentRoute = Router::get($request->getRequestUri());
-        $this->sendResponse($currentRoute);
+        $this->handleRouting();
     }
 
+    /**
+     * Gets .env varia.
+     */
     private function getEnv()
     {
         $dotenv = Dotenv::createImmutable(getcwd());
@@ -38,8 +34,17 @@ class Kernel
         return $dotenv->load();
     }
 
-    private function sendResponse(array $currentRoute): void
+    /**
+     * initiates routing & http response.
+     */
+    private function handleRouting(): void
     {
+        $controllerRegisterer = new ControllerRegisterer($this->env['APP_ENV']);
+        $controllerRegisterer->register();
+
+        $request = new Request();
+
+        $currentRoute = Router::get($request->getRequestUri());
         ControllerInstanciator::instanciate($currentRoute);
     }
 }
