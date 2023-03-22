@@ -14,8 +14,6 @@ class ControllerInstanciator
 
         $parameters = $paramResolver->resolveClassMethodParams($controller, $currentRoute["method"]);
 
-        dd($parameters);
-
         $controller->{$currentRoute["method"]}(...$parameters);
     }
 }
