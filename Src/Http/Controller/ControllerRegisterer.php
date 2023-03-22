@@ -3,8 +3,8 @@
 namespace Smoq\Http\Controller;
 
 use ReflectionClass;
-use Smoq\Http\Route;
 use Smoq\Http\Router\Router;
+use Smoq\Http\Attributes\Route;
 use Smoq\Http\Router\RouteCacher;
 
 class ControllerRegisterer
@@ -26,25 +26,26 @@ class ControllerRegisterer
 
     public function register()
     {
-
+        
         if ($this->appEnv === "prod") {
             $routes = RouteCacher::getCachedRoutes();
             $routes = unserialize($routes);
-
+            
             Router::setRoutes($routes);
             return;
         }
-
+        
         $files = $this->getFiles();
         $routes = [];
-
+        
         foreach ($files as $file) {
 
             require_once($this->baseDir . DIRECTORY_SEPARATOR . $file);
-
+            
+            
             $className = str_replace(".php", "", $file);
             $fullClassName = "App\\Controller\\" . $className;
-
+            
             $reflexion = new ReflectionClass($fullClassName);
             $methods = $reflexion->getMethods();
 
@@ -53,12 +54,22 @@ class ControllerRegisterer
                 if (!empty($attributes)) {
                     foreach ($attributes as $attribute) {
                         [$path, $name] = $attribute->getArguments();
+                        $parameters = [];
+
+                        foreach ($method->getParameters() as $param) {
+                            $parameters[] = [
+                                "name" => $param->getName(),
+                                "position" => $param->getPosition(),
+                                "typeHint" => $param->getType()->getName()
+                            ];
+                        }
 
                         $route = [
                             "path" => $path,
                             "name" => $name,
                             "controller" => $fullClassName,
                             "method" => $method->getName(),
+                            "parameters" => $parameters
                         ];
 
                         $routes[$path] = $route;

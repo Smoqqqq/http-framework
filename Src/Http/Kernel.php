@@ -3,6 +3,7 @@
 namespace Smoq\Http;
 
 use Dotenv\Dotenv;
+use Smoq\Http\Controller\ControllerInstanciator;
 use Smoq\Http\Router\Router;
 use Smoq\Http\Controller\ControllerRegisterer;
 
@@ -30,7 +31,6 @@ class Kernel
     }
 
     private function sendResponse(array $currentRoute) {
-        $controller = new $currentRoute["controller"]();
-        $controller[$currentRoute["method"]]();
+        ControllerInstanciator::instanciate($currentRoute);
     }
 }
