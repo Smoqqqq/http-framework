@@ -9,16 +9,15 @@ declare(strict_types=1);
 
 namespace Smoq\Http;
 
-use Smoq\Env;
+use Smoq\Env\Env;
 use Dotenv\Dotenv;
+use Smoq\Env\DefaultEnvironment;
 use Smoq\Http\Router\Router;
 use Smoq\Http\Controller\ControllerRegisterer;
 use Smoq\Http\Controller\ControllerInstanciator;
 
 class Kernel
 {
-    private array $env = [];
-
     public function __construct()
     {
         $this->getEnv();
@@ -32,7 +31,8 @@ class Kernel
     {
         $dotenv = Dotenv::createImmutable(getcwd());
 
-        Env::setVariables($dotenv->load());
+        DefaultEnvironment::setDefaults();
+        Env::addVariables($dotenv->load());
     }
 
     /**

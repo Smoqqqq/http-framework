@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Smoq\Http\Controller;
 
-use Smoq\Env;
+use Smoq\Env\Env;
 use Smoq\Http\Router\Router;
 use Smoq\Http\Attributes\Route;
 use Smoq\Http\Router\RouteCacher;

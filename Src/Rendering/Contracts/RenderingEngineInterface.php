@@ -9,10 +9,10 @@ declare(strict_types=1);
 
 namespace Smoq\Rendering\Contracts;
 
-interface RendererInterface
+interface RenderingEngineInterface
 {
     /**
      * renders a template.
      */
-    public static function render(string $templatePath, array $variables);
+    public function render(string $templatePath, array $variables): string;
 }

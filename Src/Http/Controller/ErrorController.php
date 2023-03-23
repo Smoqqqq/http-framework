@@ -12,12 +12,10 @@ namespace Smoq\Http\Controller;
 use Smoq\Http\Response;
 use Smoq\ParameterBag\ParameterBag;
 
-class ErrorController
+class ErrorController extends AbstractController
 {
     public function error404()
     {
-        $response = new Response(new ParameterBag(), 'Oops, an error occured !', 404);
-
-        return new $response();
+        $this->renderRaw("<h1>An error occured</h1><p>The page could not be found</p>");
     }
 }

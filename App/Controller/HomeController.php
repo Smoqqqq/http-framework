@@ -13,12 +13,10 @@ use App\Service\BarService;
 use App\Service\FooService;
 use Smoq\Http\Attributes\Route;
 use Smoq\Http\Controller\AbstractController;
-use Smoq\Http\Response;
-use Smoq\ParameterBag\ParameterBag;
 
-class PageController extends AbstractController
+class HomeController extends AbstractController
 {
-    #[Route('/', 'app_home')]
+    #[Route('/home', 'app_homepage')]
     public function home(FooService $fooService, BarService $barService)
     {
         $items = [

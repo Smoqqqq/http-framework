@@ -7,16 +7,32 @@ declare(strict_types=1);
  * Author Paul Le Flem <contact@paul-le-flem.fr>
  */
 
-namespace Smoq;
+namespace Smoq\Env;
 
 class Env
 {
 
     private static array $variables;
 
+    /**
+     * Clears all variables and sets them from $variables
+     * 
+     * @param array $variables the full environment
+     * 
+     * @return static
+     */
     public static function setVariables(array $variables = []): static
     {
         static::$variables = $variables;
+
+        return new static();
+    }
+
+    public static function addVariables(array $variables): static
+    {
+        foreach ($variables as $key => $value) {
+            static::$variables[$key] = $value;
+        }
 
         return new static();
     }

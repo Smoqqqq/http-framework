@@ -28,7 +28,13 @@ class ParameterResolver
      */
     public function resolveClassMethodParams(object|string $class, string $method)
     {
-        $reflexion = new \ReflectionMethod($class, $method);
+
+        try {
+            $reflexion = new \ReflectionMethod($class, $method);
+        } catch (\ReflectionException) {
+            // If the method doesn't exists, return an empty array
+            return [];
+        }
 
         $params = $reflexion->getParameters();
         $dependencies = [];
@@ -47,7 +53,7 @@ class ParameterResolver
             return $this->container->get($param->getType()->getName());
         } catch (\Exception) {
             if (!class_exists($param->getType()->getName())) {
-                throw new \Exception('Cannot autowire '.$param->getType()->getName().'. please configure the container');
+                throw new \Exception('Cannot autowire ' . $param->getType()->getName() . '. please configure the container');
             }
 
             $className = $param->getType()->getName();
