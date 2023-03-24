@@ -9,27 +9,24 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Service\BarService;
-use App\Service\FooService;
+use App\Entity\Todo;
 use Smoq\Http\Attributes\Route;
 use Smoq\Http\Controller\AbstractController;
-use Smoq\Http\Response;
-use Smoq\ParameterBag\ParameterBag;
+use Smoq\Orm\DoctrineOrm;
 
 class PageController extends AbstractController
 {
     #[Route('/', 'app_home')]
-    public function home(FooService $fooService, BarService $barService)
+    public function home(DoctrineOrm $doctrine)
     {
-        $items = [
-            "hello",
-            "I",
-            "am",
-            "Paul"
-        ];
+        $em = $doctrine->getManager();
+        $todo = new Todo();
+        $todo->setTitle("Faire le ménage")
+            ->setDescription("Nettoyer partout !");
 
-        return $this->render("index.html.twig", [
-            "items" => $items
-        ]);
+        $em->persist($todo);
+        $em->flush();
+
+        return $this->render("index.html.twig");
     }
 }

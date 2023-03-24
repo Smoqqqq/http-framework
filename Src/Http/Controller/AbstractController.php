@@ -2,8 +2,6 @@
 
 namespace Smoq\Http\Controller;
 
-use Smoq\Env\Env;
-use Smoq\Http\Controller\Exception\NoRenderingEngineSetException;
 use Smoq\Http\Response;
 use Smoq\ParameterBag\ParameterBag;
 use Smoq\Rendering\AbstractRenderer;

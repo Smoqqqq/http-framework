@@ -12,6 +12,10 @@
     },
     "require": {
         "vlucas/phpdotenv": "^5.5",
-        "twig/twig": "^3.5"
+        "twig/twig": "^3.5",
+        "doctrine/orm": "^2.14",
+        "doctrine/dbal": "^3.6",
+        "symfony/cache": "^6.2",
+        "doctrine/migrations": "^3.6"
     }
 }
