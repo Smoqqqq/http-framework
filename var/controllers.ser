@@ -1,1 +1,1 @@
-a:1:{s:1:"/";a:5:{s:4:"path";s:1:"/";s:4:"name";s:8:"app_home";s:10:"controller";s:29:"App\Controller\PageController";s:6:"method";s:4:"home";s:10:"parameters";a:1:{i:0;a:3:{s:4:"name";s:8:"doctrine";s:8:"position";i:0;s:8:"typeHint";s:20:"Smoq\Orm\DoctrineOrm";}}}}
+a:1:{s:1:"/";a:5:{s:4:"path";s:1:"/";s:4:"name";s:15:"app_todo_search";s:10:"controller";s:29:"App\Controller\TodoController";s:6:"method";s:6:"search";s:10:"parameters";a:1:{i:0;a:3:{s:4:"name";s:8:"doctrine";s:8:"position";i:0;s:8:"typeHint";s:20:"Smoq\Orm\DoctrineOrm";}}}}

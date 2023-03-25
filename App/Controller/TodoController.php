@@ -14,10 +14,10 @@ use Smoq\Http\Attributes\Route;
 use Smoq\Http\Controller\AbstractController;
 use Smoq\Orm\DoctrineOrm;
 
-class PageController extends AbstractController
+class TodoController extends AbstractController
 {
-    #[Route('/', 'app_home')]
-    public function home(DoctrineOrm $doctrine)
+    #[Route('/', 'app_todo_search')]
+    public function search(DoctrineOrm $doctrine)
     {
         $em = $doctrine->getManager();
         $todo = new Todo();
