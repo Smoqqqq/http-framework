@@ -52,7 +52,9 @@ class ControllerRegisterer
                 $attributes = $method->getAttributes(Route::class);
                 if (!empty($attributes)) {
                     foreach ($attributes as $attribute) {
-                        [$path, $name] = $attribute->getArguments();
+                        $arguments = $attribute->getArguments();
+                        $path = $arguments[0] ? $arguments[0] : $arguments["path"];
+                        $name = $arguments[0] ? $arguments[0] : $arguments["name"];
                         $parameters = [];
 
                         foreach ($method->getParameters() as $param) {

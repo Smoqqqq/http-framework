@@ -24,8 +24,6 @@ class Request implements RequestInterface
 
     public function __construct()
     {
-        session_start();
-
         $this->serverInfo = $_SERVER;
         $this->params = $_POST;
         $this->query = $_GET;

@@ -18,8 +18,12 @@ use Smoq\Http\Controller\ControllerInstanciator;
 
 class Kernel
 {
+
+    public static Request $request;
+
     public function __construct()
     {
+        session_start();
         $this->getEnv();
         $this->handleRouting();
     }
@@ -43,9 +47,17 @@ class Kernel
         $controllerRegisterer = new ControllerRegisterer();
         $controllerRegisterer->register();
 
-        $request = new Request();
+        static::$request = new Request();
 
-        $currentRoute = Router::get($request->getRequestUri());
+        $currentRoute = Router::get(static::$request->getRequestUri());
         ControllerInstanciator::instanciate($currentRoute);
+    }
+
+    /**
+     * Get the current request
+     */ 
+    public static function getRequest()
+    {
+        return static::$request;
     }
 }
